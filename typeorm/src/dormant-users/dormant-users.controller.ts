@@ -1,7 +1,6 @@
 import { Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DormantUsersService } from './dormant-users.service';
-import { dormantUsers } from '../entities/DormantUsers';
 import { UsersDto } from '../users/dto/users.dto';
 
 @ApiTags('DORMANT USERS')

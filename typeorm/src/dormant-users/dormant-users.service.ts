@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { dormantUsers } from '../entities/DormantUsers';
 import { users } from '../entities/Users';
 
@@ -35,7 +35,10 @@ export class DormantUsersService {
 			Logger.log('USER ID does not exist');
 	}
 	async readAllDormantUsers(){
-		return await this.userRepo.query(`SELECT users.* from users JOIN dormant_users on dormant_users."userId" = users.id;`);
+		return await this.userRepo
+			.createQueryBuilder()
+			.leftJoin('users.dormantUser', 'du')
+    	.getMany();
 	}
 
 	async deleteDormantUsers(userId: number){

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { users } from './Users';
 
 @Entity()
 export class privateTexts{
@@ -10,4 +11,8 @@ export class privateTexts{
 
 	@Column({nullable: true})
 	userId: number;
+
+	@ManyToOne(() => users, (u) => u.privateTexts)
+	@JoinColumn()
+	user: users;
 }
